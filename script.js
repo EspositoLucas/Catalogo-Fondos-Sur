@@ -117,18 +117,6 @@ zoomImage.addEventListener('click', (e) => {
     }
 });
 
-// zoomView.querySelector('.zoom-image').addEventListener('click', () => {
-//     zoomView.style.display = 'none';
-// });
-
-// // Agregar funcionalidad de scroll
-// zoomView.addEventListener('mousemove', (e) => {
-//     if (e.target.classList.contains('zoom-image')) {
-//         e.target.style.cursor = 'move';
-//     }
-// });
-
-
 // Modificar el scroll para mantener la imagen centrada
 zoomView.addEventListener('wheel', (e) => {
     if (zoomImage.classList.contains('zoomed')) {
