@@ -434,3 +434,36 @@ body {
   .product-card, .modal-content, .zoom-image {
     will-change: transform;
   }
+
+  /* Botones */
+  .filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+  
+  .filter-btn {
+    padding: 8px 16px;
+    background-color: #fff;
+    border: 2px solid #23395d;
+    border-radius: 20px;
+    color: #23395d;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .filter-btn:hover {
+    background-color: #23395d;
+    color: #fff;
+  }
+  
+  .filter-btn.active {
+    background-color: #23395d;
+    color: #fff;
+  }
+  
+  .product-card.hidden {
+    display: none;
+  }

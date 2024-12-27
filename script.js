@@ -1,5 +1,40 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    // Add filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
     const products = document.querySelectorAll('.product-card');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const filterValue = button.getAttribute('data-filter');
+
+            products.forEach(product => {
+                const materialSpans = product.querySelectorAll('.material-type');
+                const materialTexts = Array.from(materialSpans).map(span => span.textContent);
+                
+                // Check for presence of different materials
+                const hasTR = materialTexts.some(text => text.includes('T.R'));
+                const hasExpanso = materialTexts.some(text => 
+                    text.includes('EXPANSO') || 
+                    text.includes('EXPANSO MONO') || 
+                    text.includes('EXPANSO BICOLOR')
+                );
+            
+                if (filterValue === 'all') {
+                    product.classList.remove('hidden');
+                } else if (filterValue === 'T.R') {
+                    // Show products with T.R, including those with both
+                    product.classList.toggle('hidden', !hasTR);
+                } else if (filterValue === 'EXPANSO') {
+                    // Show products with EXPANSO, including those with both
+                    product.classList.toggle('hidden', !hasExpanso);
+                }
+            });
+        });
+    });
     let currentIndex = 0;
   
     // Crear el modal
