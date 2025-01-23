@@ -96,11 +96,20 @@ function showProduct(index) {
 }
 
   // Event listeners
+// products.forEach((product, index) => {
+//     product.addEventListener('click', () => {
+//     currentIndex = index;
+//     showProduct(currentIndex);
+//     modal.style.display = 'block';
+//     });
+// });
+
 products.forEach((product, index) => {
     product.addEventListener('click', () => {
-    currentIndex = index;
-    showProduct(currentIndex);
-    modal.style.display = 'block';
+        currentIndex = index;
+        showProduct(currentIndex);
+        modal.style.display = 'block';
+        document.body.classList.add('modal-open'); // Add class when opening
     });
 });
 
@@ -114,15 +123,29 @@ modal.querySelector('.next').addEventListener('click', () => {
     showProduct(currentIndex);
 });
 
+
+
+// modal.addEventListener('click', (e) => {
+//     if (e.target === modal) {
+//     modal.style.display = 'none';
+//     }
+// });
+
+//   // Event listeners
+// modal.querySelector('.close-button').addEventListener('click', () => {
+//     modal.style.display = 'none';
+// });
+
 modal.addEventListener('click', (e) => {
     if (e.target === modal) {
-    modal.style.display = 'none';
+        modal.style.display = 'none';
+        document.body.classList.remove('modal-open'); // Remove class when closing
     }
 });
 
-  // Event listeners
 modal.querySelector('.close-button').addEventListener('click', () => {
     modal.style.display = 'none';
+    document.body.classList.remove('modal-open'); // Remove class when closing
 });
 // Centrar la imagen al abrir la vista ampliada
 modal.querySelector('.modal-image').addEventListener('click', () => {

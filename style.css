@@ -1,5 +1,4 @@
 /* Estilos generales */
-
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -7,11 +6,11 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  
 }
+
 main {
-flex: 1;
-padding: 20px;
+  flex: 1;
+  padding: 20px;
 }
 
 header {
@@ -87,21 +86,22 @@ nav a {
   border-radius: 5px;
   padding: 10px;
   text-align: center;
-  
+  position: relative;
+  cursor: pointer;
 }
 
 .product-card img {
-  max-height: 250px;
-  object-fit: fill;
-  width: 100%;
-  height: auto;
-  max-width: 250px;
+  width: 100%; 
+  height: 250px;
+  object-fit: contain;
+  object-position: center;
 }
 
 .product-card h3 {
   margin-top: 10px;
   font-size: 16px;
 }
+
 .product-card h4 {
   margin-top: 10px;
   font-size: 13px;
@@ -111,10 +111,6 @@ nav a {
 .product-card p {
   margin-top: 5px;
   font-weight: bold;
-}
-.product-card {
-  position: relative;
-  cursor: pointer;
 }
 
 .product-image {
@@ -154,12 +150,15 @@ footer {
   flex-direction: column;
   align-items: center;
   gap: 1px;
+  margin-top: auto;
 }
 
 .social-links {
   display: flex;
   gap: 20px;
   justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
 }
 
 .social-icon {
@@ -167,6 +166,7 @@ footer {
   font-size: 24px;
   text-decoration: none;
   transition: transform 0.3s ease;
+  padding: 10px;
 }
 
 .social-icon:hover {
@@ -176,6 +176,11 @@ footer {
 footer a {
   color: #fff;
   text-decoration: none;
+}
+
+
+body.modal-open {
+  overflow: hidden;
 }
 
 .modal {
@@ -191,34 +196,38 @@ footer a {
 
 .modal-content {
   position: relative;
-  width: 95%;
-  max-width: 1400px;
-  height: 90vh;
-  margin: 2vh auto;
+  max-width: 1200px;
+  margin: 40px auto;
   display: flex;
+  gap: 40px;
+  padding: 80px;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  padding: 15px;
-  overflow: auto;
-  }
+  
+}
 
 .modal-image {
   max-width: 100%;
-  max-height: 85vh;
+  max-height: 80vh;
   width: auto;
   height: auto;
   object-fit: contain;
+  display: block;
+  margin: 0 auto;
 }
 
 .modal-nav {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
+  /* Increase left/right spacing to move buttons further out */
+  left: -60px; 
+  right: -60px;
+  width: calc(100% + 120px);
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
+  /* Add transform to properly center vertically */
+  transform: translateY(-50%);
 }
 
 .nav-button {
@@ -228,6 +237,8 @@ footer a {
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 4px;
+  /* Add margin to push buttons away from content */
+  margin: 0 20px;
 }
 
 .modal-info {
@@ -244,7 +255,7 @@ footer a {
 .modal-info p {
   font-size: 20px;
   color: #23395d;
-  text-align: center;  /* Cambiado de left a center */
+  text-align: center;
   padding: 20px;
 }
 
@@ -276,16 +287,15 @@ footer a {
   background: rgba(0, 0, 0, 0.9);
   z-index: 2000;
   overflow: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
+  padding: 10px;
 }
 
 .zoom-image {
-  max-width: 150%;
-  max-height: 90vh;
-  margin: 20px auto;
+  max-width: 95%;
+  max-height: 95vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -294,135 +304,131 @@ footer a {
   transition: transform 0.3s ease;
 }
 
- .zoom-image.zoomed {
-  transform: scale(2);
+.zoom-image.zoomed {
+  transform: translate(-50%, -50%) scale(2);
   cursor: zoom-out;
-  position: absolute;
-  transition: transform 0.3s ease;
+}
+
+/* Botones de filtro */
+.filter-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  background-color: #fff;
+  border: 2px solid #23395d;
+  border-radius: 20px;
+  color: #23395d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  background-color: #23395d;
+  color: #fff;
+}
+
+.filter-btn.active {
+  background-color: #23395d;
+  color: #fff;
+}
+
+.product-card.hidden {
+  display: none;
 }
 
 /* Media queries */
 @media screen and (max-width: 1024px) {
+  .product-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      padding: 10px;
+  }
+
   .modal-content {
       flex-direction: column;
-      padding: 10px;
-      height: auto;
-      max-height: 95vh;
+      align-items: center;
   }
 
   .modal-image {
-      max-height: 70vh;
+      max-width: 90%;
   }
 }
 
 @media screen and (max-width: 768px) {
   .product-grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
   }
 
   .product-card {
-    padding: 10px;
+      padding: 10px;
   }
 
-  .product-card 
-   {
-    font-size: 14px;
+  .product-card h3 {
+      font-size: 14px;
   }
 
   .product-card p {
-    font-size: 14px;
+      font-size: 14px;
   }
 
   .modal-content {
-    width: 98%;
-    margin: 1vh auto;
-}
-
-.modal-image {
-    max-height: 60vh;
-}
+      padding: 15px;
+      margin: 10px;
+  }
 
   .modal-info h3 {
-    font-size: 20px;
+      font-size: 20px;
   }
 
   .modal-info p {
-    font-size: 16px;
+      font-size: 16px;
   }
 
   .nav-button {
-    padding: 8px 15px;
-    font-size: 14px;
+      padding: 8px 15px;
+      font-size: 14px;
   }
-}
-
-/* Zoom view responsivo */
-.zoom-view {
-  padding: 10px;
-}
-
-.zoom-image {
-  max-width: 95%;
-  max-height: 90vh;
-}
-
-.zoom-image.zoomed {
-  transform: translate(-50%, -50%) scale(1.5);
-}
-
-/* Footer responsivo */
-footer {
-  background-color: #23395d;
-  color: #fff;
-  padding: 20px;
-  margin-top: auto;
-}
-
-.social-links {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-
-.social-icon {
-  font-size: 24px;
-  padding: 10px;
 }
 
 @media screen and (max-width: 480px) {
   .product-grid {
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   }
 
   .preview-text {
-    font-size: 14px;
+      font-size: 14px;
   }
 
   .modal-nav {
-    position: static;
-    transform: none;
-    margin-top: 10px;
+      position: static;
+      transform: none;
+      margin-top: 10px;
   }
 
   .close-button {
-    top: 10px;
-    right: 10px;
-    width: 25px;
-    height: 25px;
-    font-size: 16px;
+      top: 10px;
+      right: 10px;
+      width: 25px;
+      height: 25px;
+      font-size: 16px;
   }
 
   footer {
-    padding: 15px;
+      padding: 15px;
   }
 
   .social-icon {
-    font-size: 20px;
+      font-size: 20px;
   }
 }
+
 
 /* Mejoras de accesibilidad */
 @media (hover: hover) {
@@ -435,7 +441,6 @@ footer {
     opacity: 0.8;
   }
 }
-
 
 /* Mejoras de rendimiento */
 .product-card, .modal-content, .zoom-image {
