@@ -219,15 +219,14 @@ body.modal-open {
 .modal-nav {
   position: absolute;
   top: 50%;
-  /* Increase left/right spacing to move buttons further out */
-  left: -60px; 
+  left: -60px;
   right: -60px;
   width: calc(100% + 120px);
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
-  /* Add transform to properly center vertically */
   transform: translateY(-50%);
+  z-index: 1001;
 }
 
 .nav-button {
@@ -237,8 +236,7 @@ body.modal-open {
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 4px;
-  /* Add margin to push buttons away from content */
-  margin: 0 20px;
+  font-size: 16px;
 }
 
 .modal-info {
@@ -391,9 +389,19 @@ body.modal-open {
       font-size: 16px;
   }
 
+  .modal-nav {
+    position: static;
+    width: 100%;
+    transform: none;
+    margin-top: 20px;
+    padding: 0 10px;
+    left: 0;
+    right: 0;
+  }
+
   .nav-button {
-      padding: 8px 15px;
-      font-size: 14px;
+    padding: 8px 15px;
+    font-size: 14px;
   }
 }
 
@@ -406,10 +414,15 @@ body.modal-open {
       font-size: 14px;
   }
 
-  .modal-nav {
-      position: static;
-      transform: none;
-      margin-top: 10px;
+ .modal-nav {
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .nav-button {
+    padding: 6px 12px;
+    font-size: 12px;
   }
 
   .close-button {

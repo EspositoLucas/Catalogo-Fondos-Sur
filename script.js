@@ -95,14 +95,6 @@ function showProduct(index) {
     }
 }
 
-  // Event listeners
-// products.forEach((product, index) => {
-//     product.addEventListener('click', () => {
-//     currentIndex = index;
-//     showProduct(currentIndex);
-//     modal.style.display = 'block';
-//     });
-// });
 
 products.forEach((product, index) => {
     product.addEventListener('click', () => {
@@ -123,18 +115,6 @@ modal.querySelector('.next').addEventListener('click', () => {
     showProduct(currentIndex);
 });
 
-
-
-// modal.addEventListener('click', (e) => {
-//     if (e.target === modal) {
-//     modal.style.display = 'none';
-//     }
-// });
-
-//   // Event listeners
-// modal.querySelector('.close-button').addEventListener('click', () => {
-//     modal.style.display = 'none';
-// });
 
 modal.addEventListener('click', (e) => {
     if (e.target === modal) {
