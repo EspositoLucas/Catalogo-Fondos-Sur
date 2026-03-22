@@ -18,18 +18,20 @@ header {
   color: #fff;
   padding: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   position: sticky;  
   top: 0;           
   z-index: 1000; 
   flex-wrap: wrap;
+  gap: 20px;
 }
 
 .header-left {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-right: auto;
 }
 
 .logo {
@@ -39,6 +41,12 @@ header {
 
 header h1 {
   margin: 0;
+  text-align: center;
+  flex-grow: 1;
+}
+
+header nav {
+  margin-left: auto;
 }
 
 nav ul {
@@ -207,10 +215,8 @@ body.modal-open {
 }
 
 .modal-image {
-  max-width: 100%;
-  max-height: 80vh;
-  width: auto;
-  height: auto;
+  width: 600px;
+  height: 600px;
   object-fit: contain;
   display: block;
   margin: 0 auto;
@@ -354,7 +360,21 @@ body.modal-open {
   }
 
   .modal-image {
-      max-width: 90%;
+      width: 500px;
+      height: 500px;
+  }
+
+  header {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .logo {
+    height: 60px;
+  }
+
+  header h1 {
+    font-size: 1.5em;
   }
 }
 
@@ -397,9 +417,29 @@ body.modal-open {
     right: 0;
   }
 
-  .nav-button {
-    padding: 8px 15px;
-    font-size: 14px;
+  .modal-image {
+      width: 400px;
+      height: 400px;
+  }
+
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .header-left {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  header h1 {
+    margin: 10px 0;
+    font-size: 1.3em;
+  }
+
+  nav ul {
+    justify-content: center;
   }
 }
 
@@ -412,12 +452,12 @@ body.modal-open {
       font-size: 14px;
   }
 
-.modal-nav {
-  position: fixed;
-  width: 100%;
-  transform: none;
-  margin-top: 1px;
-  padding: 0 5px;
+  .modal-nav {
+    position: fixed;
+    width: 100%;
+    transform: none;
+    margin-top: 1px;
+    padding: 0 5px;
   }
 
   .nav-button {
@@ -439,6 +479,34 @@ body.modal-open {
 
   .social-icon {
       font-size: 20px;
+  }
+
+  .modal-image {
+      width: 300px;
+      height: 300px;
+  }
+
+  header h1 {
+    font-size: 1.1em;
+  }
+
+  .logo {
+    height: 50px;
+  }
+
+  .filter-container {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .zoom-image {
+    max-width: 90%;
+    max-height: 80vh;
   }
 }
 

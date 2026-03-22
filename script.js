@@ -61,10 +61,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 text.includes('EXPANSO MONO') || 
                 text.includes('EXPANSO BICOLOR')
             );
+            const hasFondosArtesanales = materialTexts.some(text => text.includes('Fondos artesanales'));
+            const hasTacos = materialTexts.some(text => text.includes('Tacos'));
+            const hasPlantillas = materialTexts.some(text => text.includes('Plantillas'));
 
             if (filterValue === 'all') return true;
             if (filterValue === 'T.R') return hasTR;
             if (filterValue === 'EXPANSO') return hasExpanso;
+            if (filterValue === 'Fondos artesanales') return hasFondosArtesanales;
+            if (filterValue === 'Tacos') return hasTacos;
+            if (filterValue === 'Plantillas') return hasPlantillas;
             return false;
         });
 
@@ -200,24 +206,72 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.querySelector('.modal-image').addEventListener('click', () => {
         zoomView.querySelector('.zoom-image').src = modal.querySelector('.modal-image').src;
         zoomView.style.display = 'block';
+        // Reset zoom state
+        zoomImage.classList.remove('zoomed');
+        zoomImage.style.transform = 'translate(-50%, -50%)';
+        zoomImage.style.cursor = 'zoom-in';
+        isDragging = false;
+        dragStartX = 0;
+        dragStartY = 0;
+        currentTranslateX = 0;
+        currentTranslateY = 0;
     });
 
     zoomView.querySelector('.close-button').addEventListener('click', () => {
         zoomView.style.display = 'none';
         zoomImage.classList.remove('zoomed');
-        zoomImage.style.top = '50%';
-        zoomImage.style.left = '50%';
+        zoomImage.style.transform = 'translate(-50%, -50%)';
+        zoomImage.style.cursor = 'zoom-in';
+        isDragging = false;
+        currentTranslateX = 0;
+        currentTranslateY = 0;
     });
 
     const zoomImage = zoomView.querySelector('.zoom-image');
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let currentTranslateX = 0;
+    let currentTranslateY = 0;
+
     zoomImage.addEventListener('click', (e) => {
         e.preventDefault();
-        if (zoomImage.classList.contains('zoomed')) {
+        if (!zoomImage.classList.contains('zoomed')) {
+            zoomImage.classList.add('zoomed');
+            zoomImage.style.transform = `translate(-50%, -50%) scale(1.5) translate(${currentTranslateX}px, ${currentTranslateY}px)`;
+            zoomImage.style.cursor = 'grab';
+        } else {
             zoomImage.classList.remove('zoomed');
             zoomImage.style.transform = 'translate(-50%, -50%)';
-        } else {
-            zoomImage.classList.add('zoomed');
-            zoomImage.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            zoomImage.style.cursor = 'zoom-in';
+            currentTranslateX = 0;
+            currentTranslateY = 0;
+        }
+    });
+
+    zoomImage.addEventListener('mousedown', (e) => {
+        if (zoomImage.classList.contains('zoomed')) {
+            isDragging = true;
+            dragStartX = e.clientX - currentTranslateX;
+            dragStartY = e.clientY - currentTranslateY;
+            zoomImage.style.cursor = 'grabbing';
+            e.preventDefault();
+        }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging && zoomImage.classList.contains('zoomed')) {
+            currentTranslateX = e.clientX - dragStartX;
+            currentTranslateY = e.clientY - dragStartY;
+            const currentScale = zoomImage.style.transform.match(/scale\((.*?)\)/)?.[1] || 1.5;
+            zoomImage.style.transform = `translate(-50%, -50%) scale(${currentScale}) translate(${currentTranslateX}px, ${currentTranslateY}px)`;
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (isDragging) {
+            isDragging = false;
+            zoomImage.style.cursor = 'grab';
         }
     });
 
@@ -228,10 +282,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentScale = currentTransform.match(/scale\((.*?)\)/)?.[1] || 1.5;
             
             const newScale = e.deltaY > 0 ? 
-                Math.max(1.5, currentScale - 0.1) :
+                Math.max(1.5, Number(currentScale) - 0.1) :
                 Math.min(3, Number(currentScale) + 0.1);
             
-            zoomImage.style.transform = `translate(-50%, -50%) scale(${newScale})`;
+            zoomImage.style.transform = `translate(-50%, -50%) scale(${newScale}) translate(${currentTranslateX}px, ${currentTranslateY}px)`;
         }
     });
 }); 
