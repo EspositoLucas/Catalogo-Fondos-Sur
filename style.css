@@ -35,7 +35,7 @@ header {
 }
 
 .logo {
-  height: 80px;
+  height: 50px;
   width: auto;
 }
 
@@ -43,10 +43,31 @@ header h1 {
   margin: 0;
   text-align: center;
   flex-grow: 1;
+  font-size: 2.2rem;
+  letter-spacing: 0.03em;
 }
 
 header nav {
   margin-left: auto;
+}
+
+.search-container {
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto 15px;
+}
+
+#searchInput {
+  width: 100%;
+  border: 2px solid #23395d;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 16px;
+}
+
+#searchInput:focus {
+  outline: 2px solid #88a7cf;
+  box-shadow: 0 0 8px rgba(34, 57, 93, 0.25);
 }
 
 nav ul {

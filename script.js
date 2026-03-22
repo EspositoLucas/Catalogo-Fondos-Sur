@@ -77,32 +77,53 @@ document.addEventListener('DOMContentLoaded', () => {
         return filteredProducts;
     }
 
+    const searchInput = document.getElementById('searchInput');
+
+    function applyFilterAndSearch() {
+        const activeFilterBtn = document.querySelector('.filter-btn.active');
+        const filterValue = activeFilterBtn ? activeFilterBtn.getAttribute('data-filter') : 'all';
+        const searchValue = searchInput.value.trim().toLowerCase();
+
+        let filteredProducts = filterProducts(filterValue);
+
+        if (searchValue) {
+            filteredProducts = filteredProducts.filter(product => {
+                const title = (product.querySelector('h3')?.textContent || '').toLowerCase();
+                const materialInfo = (product.querySelector('h4')?.textContent || '').toLowerCase();
+                return title.includes(searchValue) || materialInfo.includes(searchValue);
+            });
+        }
+
+        return filteredProducts;
+    }
+
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
             filterButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
             
-            const filterValue = button.getAttribute('data-filter');
             currentPage = 1; // Reset a la primera página al cambiar el filtro
-            const filteredProducts = filterProducts(filterValue);
+            const filteredProducts = applyFilterAndSearch();
             updateDisplay(filteredProducts);
         });
+    });
+
+    searchInput.addEventListener('input', () => {
+        currentPage = 1;
+        const filteredProducts = applyFilterAndSearch();
+        updateDisplay(filteredProducts);
     });
 
     prevPageBtn.addEventListener('click', () => {
         if (currentPage > 1) {
             currentPage--;
-            const activeFilter = document.querySelector('.filter-btn.active');
-            const filterValue = activeFilter.getAttribute('data-filter');
-            const filteredProducts = filterProducts(filterValue);
+            const filteredProducts = applyFilterAndSearch();
             updateDisplay(filteredProducts);
         }
     });
 
     nextPageBtn.addEventListener('click', () => {
-        const activeFilter = document.querySelector('.filter-btn.active');
-        const filterValue = activeFilter.getAttribute('data-filter');
-        const filteredProducts = filterProducts(filterValue);
+        const filteredProducts = applyFilterAndSearch();
         const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
         
         if (currentPage < totalPages) {
@@ -112,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Inicializar la visualización con todos los productos
-    updateDisplay(Array.from(products));
+    updateDisplay(applyFilterAndSearch());
 
     let currentIndex = 0;
   
